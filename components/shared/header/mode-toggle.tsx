@@ -1,29 +1,30 @@
-"use client";
-import { useEffect, useState } from "react";
+"use client"
 
-import { useTheme } from "next-themes";
-import { MoonIcon, SunIcon, SunMoonIcon } from "lucide-react";
+import { useEffect, useState } from "react"
+import { useTheme } from "next-themes"
 
-import { Button } from "@/components/ui/button";
+import { MoonIcon, SunIcon, SunMoonIcon } from "lucide-react"
+
+import { Button } from "@/components/ui/button"
 import {
   DropdownMenu,
-  DropdownMenuTrigger,
+  DropdownMenuCheckboxItem,
+  DropdownMenuContent,
   DropdownMenuLabel,
   DropdownMenuSeparator,
-  DropdownMenuContent,
-  DropdownMenuCheckboxItem,
-} from "@/components/ui/dropdown-menu";
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu"
 
 const ModeToggle = () => {
-  const [mounted, setMounted] = useState(false);
-  const { theme, setTheme } = useTheme();
+  const [mounted, setMounted] = useState(false)
+  const { theme, setTheme } = useTheme()
 
   useEffect(() => {
-    setMounted(true);
-  }, []);
+    setMounted(true)
+  }, [])
 
   if (!mounted) {
-    return null;
+    return null
   }
 
   return (
@@ -65,7 +66,7 @@ const ModeToggle = () => {
         </DropdownMenuCheckboxItem>
       </DropdownMenuContent>
     </DropdownMenu>
-  );
-};
+  )
+}
 
-export default ModeToggle;
+export default ModeToggle
