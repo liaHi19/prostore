@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button"
 import {
   Sheet,
   SheetContent,
+  SheetDescription,
   SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet"
@@ -33,10 +34,20 @@ const Menu = () => {
           <SheetTrigger className="align-middle">
             <EllipsisVerticalIcon />
           </SheetTrigger>
-          <SheetContent className="flex flex-col flex-start">
+          <SheetContent className="flex flex-col items-start">
             <SheetTitle>Menu</SheetTitle>
             <ModeToggle />
-            <Button>{/* <Link></Link> */}</Button>
+            <Button asChild variant="ghost">
+              <Link href="/cart">
+                <ShoppingCart /> Cart
+              </Link>
+            </Button>
+            <Button asChild variant="ghost">
+              <Link href="/sign-in">
+                <UserIcon /> Sign In
+              </Link>
+            </Button>
+            <SheetDescription></SheetDescription>
           </SheetContent>
         </Sheet>
       </nav>
