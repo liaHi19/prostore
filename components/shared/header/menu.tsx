@@ -1,17 +1,17 @@
-import Link from "next/link"
+import Link from "next/link";
 
-import { EllipsisVerticalIcon, ShoppingCart, UserIcon } from "lucide-react"
+import { EllipsisVerticalIcon, ShoppingCart, UserIcon } from "lucide-react";
 
-import { Button } from "@/components/ui/button"
+import { Button } from "@/components/ui/button";
 import {
   Sheet,
   SheetContent,
   SheetDescription,
   SheetTitle,
   SheetTrigger,
-} from "@/components/ui/sheet"
+} from "@/components/ui/sheet";
 
-import ModeToggle from "./mode-toggle"
+import ModeToggle from "./mode-toggle";
 
 const Menu = () => {
   return (
@@ -52,7 +52,7 @@ const Menu = () => {
         </Sheet>
       </nav>
     </div>
-  )
-}
+  );
+};
 
-export default Menu
+export default Menu;

@@ -1,9 +1,9 @@
-import Image from "next/image"
-import Link from "next/link"
+import Image from "next/image";
+import Link from "next/link";
 
-import { Button } from "@/components/ui/button"
+import { Button } from "@/components/ui/button";
 
-import { APP_NAME } from "@/lib/constants"
+import { APP_NAME } from "@/lib/constants";
 
 const NotFoundPage = () => {
   return (
@@ -24,7 +24,7 @@ const NotFoundPage = () => {
         </Button>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default NotFoundPage
+export default NotFoundPage;

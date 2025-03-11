@@ -1,15 +1,15 @@
-import type { Metadata } from "next"
-import { ThemeProvider } from "next-themes"
-import { Inter } from "next/font/google"
+import type { Metadata } from "next";
+import { ThemeProvider } from "next-themes";
+import { Inter } from "next/font/google";
 
-import "@/assets/styles/globals.css"
+import "@/assets/styles/globals.css";
 
-import { APP_DESCRIPTION, APP_NAME, SERVER_URL } from "@/lib/constants"
+import { APP_DESCRIPTION, APP_NAME, SERVER_URL } from "@/lib/constants";
 
 const inter = Inter({
   variable: "--font-inter-sans",
   subsets: ["latin"],
-})
+});
 
 export const metadata: Metadata = {
   title: {
@@ -18,12 +18,12 @@ export const metadata: Metadata = {
   },
   description: APP_DESCRIPTION,
   metadataBase: new URL(SERVER_URL),
-}
+};
 
 export default function RootLayout({
   children,
 }: Readonly<{
-  children: React.ReactNode
+  children: React.ReactNode;
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
@@ -38,5 +38,5 @@ export default function RootLayout({
         </ThemeProvider>
       </body>
     </html>
-  )
+  );
 }

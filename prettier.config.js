@@ -2,7 +2,7 @@
 module.exports = {
   tabWidth: 2,
   singleQuote: false,
-  semi: false,
+  semi: true,
   trailingComma: "es5",
   endOfLine: "lf",
   plugins: ["@ianvs/prettier-plugin-sort-imports"],
@@ -32,4 +32,4 @@ module.exports = {
   importOrderParserPlugins: ["typescript", "jsx", "decorators-legacy"],
   importOrderTypeScriptVersion: "5.0.0",
   importOrderCaseSensitive: false,
-}
+};
