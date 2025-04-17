@@ -6,6 +6,7 @@ import { signIn, signOut } from "@/auth";
 import { prisma } from "@/db/prisma";
 import { hashSync } from "bcrypt-ts-edge";
 
+import { formatError } from "../utils";
 import { signInFormSchema, signUpFormSchema } from "../validators";
 
 //  Sign in User with credentials
@@ -69,6 +70,6 @@ export async function signUpUser(prevState: unknown, formData: FormData) {
       throw error;
     }
 
-    return { success: false, message: "Invalid email or password" };
+    return { success: false, message: formatError(error) };
   }
 }
