@@ -1,8 +1,8 @@
 import { notFound } from "next/navigation";
 
 import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
+import AddToCart from "@/components/shared/header/product/add-to-cart";
 import ProductImages from "@/components/shared/header/product/product-images";
 import ProductPrice from "@/components/shared/header/product/product-price";
 
@@ -67,7 +67,14 @@ const ProductDetailPage = async ({
                 </div>
                 {product.stock > 0 && (
                   <div className="flex-center mt-2">
-                    <Button className="w-full">Add To Cart</Button>
+                    <AddToCart item={{
+                      productId: product.id,
+                      name: product.name,
+                      slug: product.slug,
+                      price: product.price,
+                      qty: 1,
+                      image: product.images![0]
+                      }} />
                   </div>
                 )}
               </CardContent>
