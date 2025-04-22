@@ -167,7 +167,7 @@ export async function removeItemFromCart(productId: string) {
 
     if (existItem.qty === 1) {
       // Remove from cart
-      (cart.items as CartItem[]).filter(
+      cart.items = (cart.items as CartItem[]).filter(
         (x) => x.productId !== existItem.productId
       );
     } else {
