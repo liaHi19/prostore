@@ -45,3 +45,15 @@ export function formatError(error: any) {
 export function round2(value: number | string) {
   return Math.round((Number(value) + Number.EPSILON) * 100) / 100;
 }
+
+const CURRENCY_FORMATTER = new Intl.NumberFormat("en-US", {
+  currency: "USD",
+  style: "currency",
+  minimumFractionDigits: 2,
+});
+
+export function formatCurrency(amount: number | string | null) {
+  return typeof amount !== null
+    ? CURRENCY_FORMATTER.format(Number(amount))
+    : "NaN";
+}

@@ -13,6 +13,8 @@ import { Button } from "@/components/ui/button";
 
 import { addItemToCart, removeItemFromCart } from "@/lib/actions/cart.actions";
 
+import PlusMinusBtn from "../../plus-minus-btn";
+
 const AddToCart = ({ item, cart }: { cart?: Cart; item: CartItem }) => {
   const router = useRouter();
   const { toast } = useToast();
@@ -62,21 +64,19 @@ const AddToCart = ({ item, cart }: { cart?: Cart; item: CartItem }) => {
 
   return existItem ? (
     <div>
-      <Button type="button" variant="outline" onClick={handleRemoveFromCart}>
-        {isPending ? (
-          <Loader className="size-4 animate-spin" />
-        ) : (
-          <Minus className="size-4" />
-        )}
-      </Button>
+      <PlusMinusBtn
+        isButtonPending
+        isPending={isPending}
+        onClick={handleRemoveFromCart}
+        Icon={Minus}
+      />
       <span className="px-2">{existItem.qty}</span>
-      <Button type="button" variant="outline" onClick={handleAddToCart}>
-        {isPending ? (
-          <Loader className="size-4 animate-spin" />
-        ) : (
-          <Plus className="size-4" />
-        )}
-      </Button>
+      <PlusMinusBtn
+        isButtonPending
+        isPending={isPending}
+        onClick={handleAddToCart}
+        Icon={Plus}
+      />
     </div>
   ) : (
     <Button className="w-full" type="button" onClick={handleAddToCart}>
