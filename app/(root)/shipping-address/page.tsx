@@ -4,6 +4,8 @@ import { redirect } from "next/navigation";
 import { auth } from "@/auth";
 import { ShippingAddress } from "@/types";
 
+import CheckoutSteps from "@/components/shared/checkout-steps";
+
 import { getMyCart } from "@/lib/actions/cart.actions";
 import { getUserById } from "@/lib/actions/user.actions";
 
@@ -25,7 +27,12 @@ const ShippingAddressPage = async () => {
 
   const user = await getUserById(userId);
 
-  return <ShippingAddressForm address={user.address as ShippingAddress} />;
+  return (
+    <>
+      <CheckoutSteps current={1} />
+      <ShippingAddressForm address={user.address as ShippingAddress} />
+    </>
+  );
 };
 
 export default ShippingAddressPage;
