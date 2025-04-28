@@ -1,5 +1,6 @@
 import NextAuth from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
+import { cookies } from "next/headers";
 
 import { prisma } from "@/db/prisma";
 import { PrismaAdapter } from "@auth/prisma-adapter";
@@ -52,6 +53,7 @@ export const config = {
     }),
   ],
   callbacks: {
+    ...authConfig.callbacks,
     async session({ session, user, trigger, token }: any) {
       // set the user id from the token
       session.user.id = token.sub;
@@ -65,9 +67,10 @@ export const config = {
 
       return session;
     },
-    async jwt({ token, user }: any) {
+    async jwt({ token, user, trigger }: any) {
       // assign user fields to token
       if (user) {
+        token.id = user.id;
         token.role = user.role;
         //  user has no name then use the email
         if (user.name === "NO_NAME") {
@@ -79,10 +82,28 @@ export const config = {
             data: { name: token.name },
           });
         }
+        if (trigger === "signIn" || trigger === "signUp") {
+          const cookiesObject = await cookies();
+          const sessionCartId = cookiesObject.get("sessionCartId")?.value;
+
+          if (sessionCartId) {
+            const sessionCart = await prisma.cart.findFirst({
+              where: { sessionCartId },
+            });
+
+            if (sessionCart) {
+              await prisma.cart.deleteMany({ where: { userId: user.id } });
+
+              await prisma.cart.update({
+                where: { id: sessionCart.id },
+                data: { userId: user.id },
+              });
+            }
+          }
+        }
       }
       return token;
     },
-    ...authConfig.callbacks,
   },
 };
 

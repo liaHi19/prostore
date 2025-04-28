@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import type { NextAuthConfig } from "next-auth";
 import { NextResponse } from "next/server";
 
@@ -18,7 +19,6 @@ export const authConfig = {
 
       // Get pathname from the req URL object
       const { pathname } = request.nextUrl;
-
       // Check if user is not authenticated and accessing a protected path
       if (!auth && protectedPaths.some((p) => p.test(pathname))) return false;
 
