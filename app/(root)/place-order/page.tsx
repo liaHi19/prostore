@@ -1,5 +1,4 @@
 import { Metadata } from "next";
-import Image from "next/image";
 import Link from "next/link";
 import { redirect } from "next/navigation";
 
@@ -8,19 +7,12 @@ import { ShippingAddress } from "@/types";
 
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "@/components/ui/table";
+import CardPrice from "@/components/shared/card-price";
 import CheckoutSteps from "@/components/shared/checkout-steps";
+import OrderTable from "@/components/shared/order-table";
 
 import { getMyCart } from "@/lib/actions/cart.actions";
 import { getUserById } from "@/lib/actions/user.actions";
-import { formatCurrency } from "@/lib/utils";
 
 import PlaceOrderForm from "./place-order-form";
 
@@ -79,63 +71,19 @@ const PlaceOrderPage = async () => {
           <Card>
             <CardContent className="p-4 gap-4">
               <h2 className="text-xl pb-4">Order Items</h2>
-              <Table>
-                <TableHeader>
-                  <TableRow>
-                    <TableHead>Item</TableHead>
-                    <TableHead>Quantity</TableHead>
-                    <TableHead>Price</TableHead>
-                  </TableRow>
-                </TableHeader>
-                <TableBody>
-                  {cart.items.map((item) => (
-                    <TableRow key={item.slug}>
-                      <TableCell className="flex items-center">
-                        <Link href={`/product/${item.slug}`}>
-                          <Image
-                            src={item.image}
-                            alt={item.name}
-                            width={50}
-                            height={50}
-                          />
-                          <span className="px-2">{item.name}</span>
-                        </Link>
-                      </TableCell>
-                      <TableCell>
-                        <span className="px-2">{item.qty}</span>
-                      </TableCell>
-                      <TableCell>
-                        <span className="text-right">{item.price}</span>
-                      </TableCell>
-                    </TableRow>
-                  ))}
-                </TableBody>
-              </Table>
+              <OrderTable items={cart.items} />
             </CardContent>
           </Card>
         </div>
         <div>
-          <Card>
-            <CardContent className="p-4 gap-4 space-y-4">
-              <div className="flex justify-between">
-                <div>Items</div>
-                <div>{formatCurrency(cart.itemsPrice)}</div>
-              </div>
-              <div className="flex justify-between">
-                <div>Tax</div>
-                <div>{formatCurrency(cart.taxPrice)}</div>
-              </div>{" "}
-              <div className="flex justify-between">
-                <div>Shipping</div>
-                <div>{formatCurrency(cart.shippingPrice)}</div>
-              </div>{" "}
-              <div className="flex justify-between">
-                <div>Total</div>
-                <div>{formatCurrency(cart.totalPrice)}</div>
-              </div>
-              <PlaceOrderForm />
-            </CardContent>
-          </Card>
+          <CardPrice
+            shippingPrice={cart.shippingPrice}
+            taxPrice={cart.taxPrice}
+            itemsPrice={cart.itemsPrice}
+            totalPrice={cart.totalPrice}
+          >
+            <PlaceOrderForm />
+          </CardPrice>
         </div>
       </div>
     </>

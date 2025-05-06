@@ -30,3 +30,10 @@ export type Order = z.infer<typeof insertOrderSchema> & {
   orderitems: OrderItem[];
   user: { name: string; email: string };
 };
+
+export type Prices = Pick<
+  Cart,
+  "itemsPrice" | "shippingPrice" | "taxPrice" | "totalPrice"
+>;
+
+export type TableOrderItems = Pick<Cart, "items">;
