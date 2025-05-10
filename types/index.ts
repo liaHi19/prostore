@@ -6,6 +6,7 @@ import {
   insertOrderItemSchema,
   insertOrderSchema,
   insertProductSchema,
+  paymentResultSchema,
   shippingAddressSchema,
 } from "@/lib/validators";
 
@@ -37,3 +38,5 @@ export type Prices = Pick<
 >;
 
 export type TableOrderItems = Pick<Cart, "items">;
+
+export type PaymentResult = z.infer<typeof paymentResultSchema>;
