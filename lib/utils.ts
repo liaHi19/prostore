@@ -11,14 +11,14 @@ export function convertToPlainObject<T>(value: T): T {
   return JSON.parse(JSON.stringify(value));
 }
 
-const NUMBER_FORMATTER = new Intl.NumberFormat("en-US", {
+const NUMBER_FORMATTER_DECIMAL = new Intl.NumberFormat("en-US", {
   minimumFractionDigits: 2,
   maximumFractionDigits: 2,
 });
 
 // Format number with decimal places
 export function formatNumberWithDecimal(num: number) {
-  return NUMBER_FORMATTER.format(num);
+  return NUMBER_FORMATTER_DECIMAL.format(num);
 }
 
 // format errors
@@ -57,6 +57,12 @@ export function formatCurrency(amount: number | string | null) {
   return typeof amount !== null
     ? CURRENCY_FORMATTER.format(Number(amount))
     : "NaN";
+}
+
+const NUMBER_FORMATTER = new Intl.NumberFormat("en-US");
+
+export function formatNumber(num: number) {
+  return NUMBER_FORMATTER.format(num);
 }
 
 // Shorten UUID
