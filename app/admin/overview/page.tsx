@@ -23,6 +23,8 @@ import {
 import { getOrderSummary } from "@/lib/actions/order.actions";
 import { formatCurrency, formatDateTime, formatNumber } from "@/lib/utils";
 
+import Charts from "./charts";
+
 export const metadata: Metadata = {
   title: "Admin Overview",
 };
@@ -89,7 +91,9 @@ const AdminOverViewPage = async () => {
         <Card className="col-span-4">
           <CardHeader>
             <CardTitle>Overview</CardTitle>
-            <CardContent>{/* Chart here */}</CardContent>
+            <CardContent>
+              <Charts data={{ salesData: summary.salesData }} />
+            </CardContent>
           </CardHeader>
         </Card>
         <Card className="col-span-3">
