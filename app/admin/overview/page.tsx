@@ -21,6 +21,7 @@ import {
 } from "@/components/ui/table";
 
 import { getOrderSummary } from "@/lib/actions/order.actions";
+import { requireAdmin } from "@/lib/auth-guard";
 import { formatCurrency, formatDateTime, formatNumber } from "@/lib/utils";
 
 import Charts from "./charts";
@@ -30,6 +31,7 @@ export const metadata: Metadata = {
 };
 
 const AdminOverViewPage = async () => {
+  await requireAdmin();
   const session = await auth();
 
   if (session?.user?.role !== "admin") {
