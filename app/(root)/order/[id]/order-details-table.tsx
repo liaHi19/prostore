@@ -1,5 +1,7 @@
 "use client";
 
+import { useTransition } from "react";
+
 import { Order } from "@/types";
 import {
   PayPalButtons,
@@ -10,6 +12,7 @@ import {
 import { useToast } from "@/hooks/use-toast";
 
 import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import CardPrice from "@/components/shared/card-price";
 import OrderTable from "@/components/shared/order-table";
@@ -17,6 +20,8 @@ import OrderTable from "@/components/shared/order-table";
 import {
   approvePayPalOrder,
   createPayPalOrder,
+  deliverOrder,
+  updateOrderToPaidCOD,
 } from "@/lib/actions/order.actions";
 import { formatDateTime, formatId } from "@/lib/utils";
 
@@ -32,12 +37,45 @@ const PrintLoadingState = () => {
   return status;
 };
 
+const ActionButton = ({
+  action,
+  id,
+  content,
+}: {
+  action: (id: string) => Promise<{ success: boolean; message: true }>;
+  id: string;
+  content: string;
+}) => {
+  const [isPending, startTransition] = useTransition();
+  const { toast } = useToast();
+
+  return (
+    <Button
+      type="button"
+      disabled={isPending}
+      onClick={() => {
+        startTransition(async () => {
+          const res = await action(id);
+          toast({
+            variant: res.success ? "default" : "destructive",
+            description: res.message,
+          });
+        });
+      }}
+    >
+      {isPending ? "Processing..." : content}
+    </Button>
+  );
+};
+
 const OrderDetailsTable = ({
   order,
   paypalClientId,
+  isAdmin,
 }: {
   order: Order;
   paypalClientId: string;
+  isAdmin: boolean;
 }) => {
   const {
     id,
@@ -77,6 +115,7 @@ const OrderDetailsTable = ({
       description: res.message,
     });
   };
+
   return (
     <>
       <h1 className="py-4 text-2xl">Order {formatId(id)}</h1>
@@ -137,6 +176,20 @@ const OrderDetailsTable = ({
                   />
                 </PayPalScriptProvider>
               </div>
+            )}
+            {isAdmin && !isPaid && paymentMethod === "CashOnDelivery" && (
+              <ActionButton
+                id={order.id}
+                action={updateOrderToPaidCOD}
+                content="Mark As Paid"
+              />
+            )}
+            {isAdmin && isPaid && !isDelivered && (
+              <ActionButton
+                id={order.id}
+                action={deliverOrder}
+                content="Mark As Delivered"
+              />
             )}
           </CardPrice>
         </div>
