@@ -18,6 +18,7 @@ const Pagination = ({ page, totalPages, urlParams }: PaginationProps) => {
 
   const handleClick = (btnType: string) => {
     const pageValue = btnType === "next" ? Number(page) + 1 : Number(page) - 1;
+
     const newUrl = formUrlQuery({
       params: searchParams.toString(),
       key: urlParams || "page",
@@ -31,7 +32,7 @@ const Pagination = ({ page, totalPages, urlParams }: PaginationProps) => {
       <Button
         size="lg"
         variant="outline"
-        className="w-28"
+        className="w-28 cursor-pointer"
         disabled={Number(page) <= 1}
         onClick={() => handleClick("prev")}
       >
@@ -40,7 +41,7 @@ const Pagination = ({ page, totalPages, urlParams }: PaginationProps) => {
       <Button
         size="lg"
         variant="outline"
-        className="w-28"
+        className="w-28 cursor-pointer"
         disabled={Number(page) >= totalPages}
         onClick={() => handleClick("next")}
       >
