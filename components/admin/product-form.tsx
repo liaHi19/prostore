@@ -1,0 +1,194 @@
+"use client";
+
+import { useRouter } from "next/navigation";
+
+import { Product } from "@/types";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useForm } from "react-hook-form";
+import slugify from "slugify";
+import { z } from "zod";
+
+import { useToast } from "@/hooks/use-toast";
+
+import { productDefaultValues } from "@/lib/constants";
+import { insertProductSchema, updateProductSchema } from "@/lib/validators";
+
+import { Button } from "../ui/button";
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "../ui/form";
+import { Input } from "../ui/input";
+import { Textarea } from "../ui/textarea";
+
+const ProductForm = ({
+  type,
+  product,
+  productId,
+}: {
+  type: "Create" | "Update";
+  product?: Product;
+  productId?: string;
+}) => {
+  const router = useRouter();
+  const { toast } = useToast();
+
+  const form = useForm<z.infer<typeof insertProductSchema>>({
+    resolver: zodResolver(
+      type === "Update" ? updateProductSchema : insertProductSchema
+    ),
+    defaultValues:
+      product && type === "Update" ? product : productDefaultValues,
+  });
+
+  const { isSubmitting, isValid, isDirty } = form.formState;
+
+  return (
+    <Form {...form}>
+      <form className="space-y-8">
+        <div className="flex flex-col md:flex-row gap-5 items-start">
+          {/* Name */}
+          <FormField
+            control={form.control}
+            name="name"
+            render={({ field }) => (
+              <FormItem className="w-full">
+                <FormLabel>Name</FormLabel>
+                <FormControl>
+                  <Input placeholder="Enter product name" {...field} />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          {/* Slug */}
+          <FormField
+            control={form.control}
+            name="slug"
+            render={({ field }) => (
+              <FormItem className="w-full">
+                <FormLabel>Slug</FormLabel>
+                <FormControl>
+                  <div className="relative">
+                    <Input placeholder="Enter slug" {...field} />
+                    <Button
+                      type="button"
+                      className="bg-gray-500 hover:bg-gray-600 text-white px-4 py-2 mt-2 cursor-pointer"
+                      onClick={() => {
+                        form.setValue(
+                          "slug",
+                          slugify(form.getValues("name"), { lower: true })
+                        );
+                      }}
+                    >
+                      Generate
+                    </Button>
+                  </div>
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+        </div>
+        <div className="flex flex-col md:flex-row gap-5">
+          {/* Category */}
+          <FormField
+            control={form.control}
+            name="category"
+            render={({ field }) => (
+              <FormItem className="w-full">
+                <FormLabel>Category</FormLabel>
+                <FormControl>
+                  <Input placeholder="Enter category" {...field} />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          {/* Brand */}
+          <FormField
+            control={form.control}
+            name="brand"
+            render={({ field }) => (
+              <FormItem className="w-full">
+                <FormLabel>Brand</FormLabel>
+                <FormControl>
+                  <Input placeholder="Enter brand" {...field} />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+        </div>
+        <div className="flex flex-col md:flex-row gap-5">
+          {/* Price */}
+          <FormField
+            control={form.control}
+            name="price"
+            render={({ field }) => (
+              <FormItem className="w-full">
+                <FormLabel>Price</FormLabel>
+                <FormControl>
+                  <Input placeholder="Enter price" {...field} />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          {/* Stock */}
+          <FormField
+            control={form.control}
+            name="stock"
+            render={({ field }) => (
+              <FormItem className="w-full">
+                <FormLabel>Stock</FormLabel>
+                <FormControl>
+                  <Input placeholder="Enter stock" {...field} />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+        </div>
+        <div className="upload-field flex flex-col md:flex-row gap-5">
+          {/* Images */}
+        </div>
+        <div className="upload-field">{/* isFeatured */}</div>
+        <div>{/* Description */}</div>
+        <FormField
+          control={form.control}
+          name="description"
+          render={({ field }) => (
+            <FormItem className="w-full">
+              <FormLabel>Description</FormLabel>
+              <FormControl>
+                <Textarea
+                  placeholder="Enter product description"
+                  {...field}
+                  className="resize-none"
+                />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        <div>
+          <Button
+            type="submit"
+            size="lg"
+            disabled={isSubmitting || !isValid || !isDirty}
+            className="col-span-2 button w-full"
+          >
+            {isSubmitting ? "Submitting" : `${type} Product`}
+          </Button>
+        </div>
+      </form>
+    </Form>
+  );
+};
+
+export default ProductForm;
