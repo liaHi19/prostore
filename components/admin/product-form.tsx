@@ -18,6 +18,7 @@ import { insertProductSchema, updateProductSchema } from "@/lib/validators";
 
 import { Button } from "../ui/button";
 import { Card, CardContent } from "../ui/card";
+import { Checkbox } from "../ui/checkbox";
 import {
   Form,
   FormControl,
@@ -87,6 +88,8 @@ const ProductForm = ({
   };
 
   const images = form.watch("images");
+  const isFeatured = form.watch("isFeatured");
+  const banner = form.watch("banner");
 
   return (
     <Form {...form}>
@@ -243,7 +246,28 @@ const ProductForm = ({
             )}
           />
         </div>
-        <div className="upload-field">{/* isFeatured */}</div>
+        <div className="upload-field">
+          {/* isFeatured */}
+          Featured Product
+          <Card>
+            <CardContent className="space-y-2 mt-2">
+              <FormField
+                control={form.control}
+                name="isFeatured"
+                render={({ field }) => (
+                  <FormItem className="space-x-2 items-center">
+                    <FormControl>
+                      <Checkbox
+                        checked={field.value}
+                        onCheckedChange={field.onChange}
+                      />
+                    </FormControl>
+                  </FormItem>
+                )}
+              />
+            </CardContent>
+          </Card>
+        </div>
         <div>{/* Description */}</div>
         <FormField
           control={form.control}
