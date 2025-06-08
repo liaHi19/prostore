@@ -37,10 +37,8 @@ export async function getProductById(productId: string) {
 
 // Get All products
 export async function getAllProducts({
-  query,
   limit = PAGE_SIZE,
   page,
-  category,
 }: {
   query: string;
   limit?: number;
