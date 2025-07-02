@@ -16,6 +16,7 @@ import {
   shippingAddressSchema,
   signInFormSchema,
   signUpFormSchema,
+  updateUserSchema,
 } from "../validators";
 
 //  Sign in User with credentials
@@ -191,6 +192,30 @@ export async function deleteUser(id: string) {
     return {
       success: true,
       message: "User deleted successfully",
+    };
+  } catch (error) {
+    return {
+      success: false,
+      message: formatError(error),
+    };
+  }
+}
+
+// Update a user
+export async function updateUser(user: z.infer<typeof updateUserSchema>) {
+  try {
+    const currentUser = await prisma.user.findFirst({ where: { id: user.id } });
+    if (!currentUser) throw new Error("User not found");
+
+    await prisma.user.update({
+      where: { id: currentUser.id },
+      data: { name: user.name, role: user.role },
+    });
+
+    revalidatePath("/admin/users/");
+    return {
+      success: true,
+      message: "User updated successfully",
     };
   } catch (error) {
     return {
