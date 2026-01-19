@@ -1,5 +1,6 @@
 import ProductCarousel from "@/components/shared/header/product/product-carousel";
 import ProductList from "@/components/shared/header/product/product-list";
+import ViewAllProductsButton from "@/components/view-all-products-button";
 
 import {
   getFeaturedProducts,
@@ -11,8 +12,11 @@ export default async function Home() {
   const featuredProducts = await getFeaturedProducts();
   return (
     <>
-      {featuredProducts.length > 0 && <ProductCarousel data={featuredProducts} />}
+      {featuredProducts.length > 0 && (
+        <ProductCarousel data={featuredProducts} />
+      )}
       <ProductList data={latestProducts} title="Newest arrivals" limit={4} />
+      <ViewAllProductsButton />
     </>
   );
 }
