@@ -6,8 +6,6 @@ import { prisma } from "@/db/prisma";
 import { PrismaAdapter } from "@auth/prisma-adapter";
 import { compareSync } from "bcrypt-ts-edge";
 
-import { authConfig } from "./auth.config";
-
 export const config = {
   pages: {
     signIn: "/sign-in",
@@ -53,7 +51,10 @@ export const config = {
     }),
   ],
   callbacks: {
-    ...authConfig.callbacks,
+    async redirect({ baseUrl }: any) {
+      return baseUrl;
+    },
+
     async session({ session, user, trigger, token }: any) {
       // set the user id from the token
       session.user.id = token.sub;
