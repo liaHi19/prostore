@@ -17,7 +17,7 @@ export async function proxy(request: NextRequest) {
   const { pathname } = request.nextUrl;
 
   if (!authState && protectedPaths.some((p) => p.test(pathname))) {
-    return NextResponse.redirect(request.nextUrl.origin);
+    return NextResponse.redirect(`${request.nextUrl.origin}/sign-in`);
   }
 
   if (!request.cookies.get("sessionCartId")) {

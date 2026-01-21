@@ -71,9 +71,9 @@ const AdminProductsPage = async (props: {
               <TableCell className="text-right">
                 {formatCurrency(product.price)}
               </TableCell>
-              <TableCell>{product.category}</TableCell>{" "}
-              <TableCell>{product.stock}</TableCell>{" "}
-              <TableCell>{product.rating}</TableCell>{" "}
+              <TableCell>{product.category}</TableCell>
+              <TableCell>{product.stock}</TableCell>
+              <TableCell>{product.rating}</TableCell>
               <TableCell className="flex gap-1">
                 <Button asChild variant="outline" size="sm">
                   <Link href={`/admin/products/${product.id}`}>Edit</Link>
