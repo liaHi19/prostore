@@ -51,10 +51,6 @@ export const config = {
     }),
   ],
   callbacks: {
-    async redirect({ baseUrl }: any) {
-      return baseUrl;
-    },
-
     async session({ session, user, trigger, token }: any) {
       // set the user id from the token
       session.user.id = token.sub;
