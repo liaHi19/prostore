@@ -36,7 +36,10 @@ import {
 } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
 
-import { createUpdateReview } from "@/lib/actions/review.actions";
+import {
+  createUpdateReview,
+  getReviewByProductId,
+} from "@/lib/actions/review.actions";
 import { reviewFormDefaultValues } from "@/lib/constants";
 import { insertReviewSchema } from "@/lib/validators";
 
@@ -47,7 +50,7 @@ export default function ReviewForm({
 }: {
   userId: string;
   productId: string;
-  onReviewSubmitted?: () => void;
+  onReviewSubmitted: () => void;
 }) {
   const [open, setOpen] = useState(false);
 
@@ -144,16 +147,17 @@ export default function ReviewForm({
                       <FormLabel>Rating</FormLabel>
                       <Select
                         onValueChange={field.onChange}
-                        value={field.value.toString()}
+                        value={field.value === 0 ? "" : field.value.toString()}
                       >
                         <FormControl>
-                          <SelectTrigger>
-                            <SelectValue />
+                          <SelectTrigger className="w-full max-w-40 cursor-pointer">
+                            <SelectValue placeholder="Select rating" />
                           </SelectTrigger>
                         </FormControl>
                         <SelectContent>
                           {Array.from({ length: 5 }).map((_, index) => (
                             <SelectItem
+                              className="cursor-pointer"
                               key={index}
                               value={(index + 1).toString()}
                             >
