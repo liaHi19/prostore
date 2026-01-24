@@ -46,11 +46,9 @@ import { insertReviewSchema } from "@/lib/validators";
 export default function ReviewForm({
   userId,
   productId,
-  onReviewSubmitted,
 }: {
   userId: string;
   productId: string;
-  onReviewSubmitted: () => void;
 }) {
   const [open, setOpen] = useState(false);
 
@@ -89,8 +87,6 @@ export default function ReviewForm({
     }
 
     setOpen(false);
-
-    onReviewSubmitted();
 
     toast({
       description: res.message,

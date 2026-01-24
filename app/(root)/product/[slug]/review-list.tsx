@@ -30,9 +30,6 @@ function ReviewList({
   productSlug: string;
   reviewsPromise: Promise<{ data: Review[] }>;
 }) {
-  const reload = () => {
-    console.log("Review submitted");
-  };
   const reviewsData = use(reviewsPromise);
   const reviews = reviewsData.data;
 
@@ -40,11 +37,7 @@ function ReviewList({
     <div className="space-t-4">
       {reviews.length === 0 && <p>No reviews</p>}
       {userId ? (
-        <ReviewForm
-          productId={productId}
-          userId={userId}
-          onReviewSubmitted={reload}
-        />
+        <ReviewForm productId={productId} userId={userId} />
       ) : (
         <div>
           Please
