@@ -25,6 +25,8 @@ import {
 } from "@/lib/actions/order.actions";
 import { formatDateTime, formatId } from "@/lib/utils";
 
+import StripePayment from "./stripe-payment";
+
 const PrintLoadingState = () => {
   const [{ isPending, isRejected }] = usePayPalScriptReducer();
   let status = "";
@@ -71,10 +73,12 @@ const ActionButton = ({
 const OrderDetailsTable = ({
   order,
   paypalClientId,
+  stripeClientSecret,
   isAdmin,
 }: {
   order: Order;
   paypalClientId: string;
+  stripeClientSecret: string | null;
   isAdmin: boolean;
 }) => {
   const {
@@ -93,6 +97,7 @@ const OrderDetailsTable = ({
   } = order;
 
   const { toast } = useToast();
+  // console.log("stripe", stripeClientSecret);
 
   const handleCreatePayPalOrder = async () => {
     const res = await createPayPalOrder(order.id);
@@ -176,6 +181,14 @@ const OrderDetailsTable = ({
                   />
                 </PayPalScriptProvider>
               </div>
+            )}
+            {/* Stripe Payment */}
+            {!isPaid && paymentMethod === "Stripe" && stripeClientSecret && (
+              <StripePayment
+                priceInCents={Number(order.totalPrice) * 100}
+                orderId={order.id}
+                clientSecret={stripeClientSecret}
+              />
             )}
             {isAdmin && !isPaid && paymentMethod === "CashOnDelivery" && (
               <ActionButton
