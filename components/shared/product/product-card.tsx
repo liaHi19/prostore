@@ -6,6 +6,7 @@ import { Product } from "@/types";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 
 import ProductPrice from "./product-price";
+import Rating from "./rating";
 
 const ProductCard = ({ product }: { product: Product }) => {
   return (
@@ -27,7 +28,7 @@ const ProductCard = ({ product }: { product: Product }) => {
           <h2 className="text-sm font-medium">{product.name}</h2>
         </Link>
         <div className="flex flex-between gap-4 ">
-          <p>{product.rating}</p>
+          <Rating value={Number(product.rating)} />
           {product.stock > 0 ? (
             <ProductPrice value={Number(product.price)} />
           ) : (

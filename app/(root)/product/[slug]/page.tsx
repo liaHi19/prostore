@@ -1,15 +1,19 @@
+import { Suspense } from "react";
 import { notFound } from "next/navigation";
 
 import { auth } from "@/auth";
+import { Loader } from "lucide-react";
 
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
 import AddToCart from "@/components/shared/product/add-to-cart";
 import ProductImages from "@/components/shared/product/product-images";
 import ProductPrice from "@/components/shared/product/product-price";
+import Rating from "@/components/shared/product/rating";
 
 import { getMyCart } from "@/lib/actions/cart.actions";
 import { getProductBySlug } from "@/lib/actions/product.actions";
+import { getReviews } from "@/lib/actions/review.actions";
 
 import ReviewList from "./review-list";
 
@@ -28,6 +32,8 @@ const ProductDetailPage = async ({
   const session = await auth();
   const userId = session?.user?.id;
 
+  const reviews = getReviews({ productId: product.id });
+
   return (
     <>
       <section>
@@ -43,9 +49,8 @@ const ProductDetailPage = async ({
                 {product.brand} {product.category}
               </p>
               <h1 className="h3-bold">{product.name}</h1>
-              <p>
-                {product.rating} of {product.numReviews} Reviews
-              </p>
+              <Rating value={Number(product.rating)} />
+              <p>{product.numReviews} reviews</p>
               <div className="flex flex-col sm:flex-row sm:items-center gap-3">
                 <ProductPrice
                   value={Number(product.price)}
@@ -96,11 +101,20 @@ const ProductDetailPage = async ({
       </section>
       <section className="mt-10">
         <h2 className="h2-bold">Customer Reviews</h2>
-        <ReviewList
-          userId={userId || ""}
-          productId={product.id}
-          productSlug={product.slug}
-        />
+        <Suspense
+          fallback={
+            <div className="w-full">
+              <Loader className="animate-spin size-8" />
+            </div>
+          }
+        >
+          <ReviewList
+            userId={userId || ""}
+            productId={product.id}
+            productSlug={product.slug}
+            reviewsPromise={reviews}
+          />
+        </Suspense>
       </section>
     </>
   );
