@@ -13,7 +13,7 @@ import { Button } from "@/components/ui/button";
 
 import { addItemToCart, removeItemFromCart } from "@/lib/actions/cart.actions";
 
-import PlusMinusBtn from "../../plus-minus-btn";
+import PlusMinusBtn from "../plus-minus-btn";
 
 const AddToCart = ({ item, cart }: { cart?: Cart; item: CartItem }) => {
   const router = useRouter();

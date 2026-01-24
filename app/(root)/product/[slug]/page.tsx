@@ -4,9 +4,9 @@ import { auth } from "@/auth";
 
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
-import AddToCart from "@/components/shared/header/product/add-to-cart";
-import ProductImages from "@/components/shared/header/product/product-images";
-import ProductPrice from "@/components/shared/header/product/product-price";
+import AddToCart from "@/components/shared/product/add-to-cart";
+import ProductImages from "@/components/shared/product/product-images";
+import ProductPrice from "@/components/shared/product/product-price";
 
 import { getMyCart } from "@/lib/actions/cart.actions";
 import { getProductBySlug } from "@/lib/actions/product.actions";

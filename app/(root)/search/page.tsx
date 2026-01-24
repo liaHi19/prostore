@@ -1,7 +1,7 @@
 import Link from "next/link";
 
 import { Button } from "@/components/ui/button";
-import ProductCard from "@/components/shared/header/product/product-card";
+import ProductCard from "@/components/shared/product/product-card";
 
 import {
   getAllCategories,
