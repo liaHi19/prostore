@@ -97,7 +97,6 @@ const OrderDetailsTable = ({
   } = order;
 
   const { toast } = useToast();
-  // console.log("stripe", stripeClientSecret);
 
   const handleCreatePayPalOrder = async () => {
     const res = await createPayPalOrder(order.id);
