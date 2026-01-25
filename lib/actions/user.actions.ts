@@ -47,8 +47,10 @@ export async function signInWithCredentials(
 // sign user out
 export async function signOutUser() {
   const currentCart = await getMyCart();
+  if (currentCart) {
+    await prisma.cart.delete({ where: { id: currentCart?.id } });
+  }
 
-  await prisma.cart.delete({ where: { id: currentCart?.id } });
   await signOut();
 }
 
