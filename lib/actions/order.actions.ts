@@ -5,7 +5,8 @@ import { isRedirectError } from "next/dist/client/components/redirect-error";
 
 import { auth } from "@/auth";
 import { prisma } from "@/db/prisma";
-import { CartItem, Order, PaymentResult } from "@/types";
+import { sendPurchaseReceipt } from "@/email";
+import { CartItem, Order, PaymentResult, ShippingAddress } from "@/types";
 import { Prisma } from "@prisma/client";
 
 import { PAGE_SIZE } from "../constants";
@@ -228,6 +229,14 @@ export async function updateOrderToPaid({
   });
 
   if (!updatedOrder) throw new Error("Order not found");
+
+  sendPurchaseReceipt({
+    order: {
+      ...updatedOrder,
+      shippingAddress: updatedOrder.shippingAddress as ShippingAddress,
+      paymentResult: updatedOrder.paymentResult as PaymentResult,
+    },
+  });
 }
 
 // get user's orders
