@@ -10,8 +10,8 @@ import Rating from "./rating";
 
 const ProductCard = ({ product }: { product: Product }) => {
   return (
-    <Card className="w-full max-w-sm">
-      <CardHeader className="p-0 items-center">
+    <Card className="w-full max-w-xs md:max-w-sm">
+      <CardHeader className="p-0 flex items-center justify-center">
         <Link href={`/product/${product.slug}`}>
           <Image
             src={product.images[0]}
@@ -22,17 +22,17 @@ const ProductCard = ({ product }: { product: Product }) => {
           />
         </Link>
       </CardHeader>
-      <CardContent className="p-4 grid gap-4">
+      <CardContent className="p-2.5 md:p-4 grid gap-2 md:gap-4">
         <div className="text-xs">{product.brand}</div>
         <Link href={`/product/${product.slug}`}>
           <h2 className="text-sm font-medium">{product.name}</h2>
         </Link>
-        <div className="flex flex-between gap-4 ">
+        <div className="flex flex-between gap-4">
           <Rating value={Number(product.rating)} />
           {product.stock > 0 ? (
             <ProductPrice value={Number(product.price)} />
           ) : (
-            <p className="text-destructive capitalize">Out Of stock</p>
+            <p className="alert-text capitalize ">Out Of stock</p>
           )}
         </div>
       </CardContent>
