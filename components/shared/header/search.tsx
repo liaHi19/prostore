@@ -44,8 +44,7 @@ const Search = async () => {
             className="md:w-[180px] lg:w-[300px] rounded-e-none border-r-0"
           />
           <Button
-            aria-labelledby="Search and filter button"
-            role="button"
+            aria-label="Search and filter"
             className="cursor-pointer border-l-0 rounded-s-none"
           >
             <SearchIcon />
