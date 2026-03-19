@@ -11,7 +11,6 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 
 import { signInWithCredentials } from "@/lib/actions/user.actions";
-import { signInDefaultValues } from "@/lib/constants";
 
 const SignInButton = () => {
   const { pending } = useFormStatus();
@@ -43,7 +42,6 @@ const CredentialsSignInForm = () => {
             type="email"
             required
             autoComplete="email"
-            defaultValue={signInDefaultValues.email}
           />
         </div>
         <div>
@@ -54,7 +52,6 @@ const CredentialsSignInForm = () => {
             type="password"
             required
             autoComplete="password"
-            defaultValue={signInDefaultValues.password}
           />
         </div>
         <div>

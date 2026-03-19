@@ -42,6 +42,7 @@ const SignUpPage = async (props: {
               height={100}
               alt={`${APP_NAME} logo`}
               priority={true}
+              fetchPriority="high"
             />
           </Link>
           <CardTitle className="text-center">Create Account</CardTitle>

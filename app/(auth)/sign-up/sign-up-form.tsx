@@ -11,7 +11,6 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 
 import { signUpUser } from "@/lib/actions/user.actions";
-import { signUpDefaultValues } from "@/lib/constants";
 
 const SignUpButton = () => {
   const { pending } = useFormStatus();
@@ -43,7 +42,6 @@ const SignUpForm = () => {
             type="text"
             required
             autoComplete="name"
-            defaultValue={signUpDefaultValues.name}
           />
         </div>
         <div>
@@ -54,7 +52,6 @@ const SignUpForm = () => {
             type="email"
             required
             autoComplete="email"
-            defaultValue={signUpDefaultValues.email}
           />
         </div>
         <div>
@@ -65,7 +62,6 @@ const SignUpForm = () => {
             type="password"
             required
             autoComplete="password"
-            defaultValue={signUpDefaultValues.password}
           />
         </div>
         <div>
@@ -76,7 +72,6 @@ const SignUpForm = () => {
             type="password"
             required
             autoComplete="confirmPassword"
-            defaultValue={signUpDefaultValues.confirmPassword}
           />
         </div>
         <div>
