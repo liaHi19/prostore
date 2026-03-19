@@ -19,7 +19,10 @@ const Search = async () => {
     <form action="/search" method="GET">
       <div className="flex w-full max-w-sm items-center space-x-2">
         <Select name="category">
-          <SelectTrigger className="w-[180px]">
+          <SelectTrigger
+            className="md:w-[120px] lg:w-[180px]"
+            aria-label="Select button for category filter"
+          >
             <SelectValue placeholder="All" />
           </SelectTrigger>
           <SelectContent>
@@ -33,15 +36,21 @@ const Search = async () => {
             ))}
           </SelectContent>
         </Select>
-        <Input
-          name="q"
-          type="text"
-          placeholder="Search..."
-          className="md:w-[100px] lg:w-[300px]"
-        />
-        <Button>
-          <SearchIcon />
-        </Button>
+        <div className="flex items-center">
+          <Input
+            name="q"
+            type="text"
+            placeholder="Search..."
+            className="md:w-[180px] lg:w-[300px] rounded-e-none border-r-0"
+          />
+          <Button
+            aria-labelledby="Search and filter button"
+            role="button"
+            className="cursor-pointer border-l-0 rounded-s-none"
+          >
+            <SearchIcon />
+          </Button>
+        </div>
       </div>
     </form>
   );
