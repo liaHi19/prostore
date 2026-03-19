@@ -39,7 +39,6 @@ const ProductCarousel = ({ data }: { data: Product[] }) => {
                   height={0}
                   sizes="(min-width: 1360px) 1200px, (min-width: 780px) 89.29vw, calc(100vw - 40px)"
                   className="w-full h-full object-cover"
-                  priority
                 />
                 <div className="absolute inset-0 flex items-end justify-center">
                   <h2 className="bg-gray-900/50 font-bold px-2 text-white">
