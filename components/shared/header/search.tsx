@@ -20,7 +20,7 @@ const Search = async () => {
       <div className="flex w-full max-w-sm items-center space-x-2">
         <Select name="category">
           <SelectTrigger
-            className="md:w-[120px] lg:w-[180px]"
+            className="w-[120px]"
             aria-label="Select button for category filter"
           >
             <SelectValue placeholder="All" />
@@ -41,7 +41,7 @@ const Search = async () => {
             name="q"
             type="text"
             placeholder="Search..."
-            className="md:w-[180px] lg:w-[300px] rounded-e-none border-r-0"
+            className="md:w-[200px] rounded-e-none border-r-0"
           />
           <Button
             aria-label="Search and filter"
