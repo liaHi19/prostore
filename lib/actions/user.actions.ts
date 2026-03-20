@@ -31,8 +31,9 @@ export async function signInWithCredentials(
       email: formData.get("email"),
       password: formData.get("password"),
     });
+    const redirectTo = formData.get("callbackUrl") as string;
 
-    await signIn("credentials", user);
+    await signIn("credentials", { ...user, redirectTo });
 
     return { success: true, message: "Sign in successfully" };
   } catch (error) {
@@ -51,7 +52,7 @@ export async function signOutUser() {
     await prisma.cart.delete({ where: { id: currentCart?.id } });
   }
 
-  await signOut();
+  await signOut({ redirectTo: "/" });
 }
 
 // sign up user
@@ -63,6 +64,7 @@ export async function signUpUser(prevState: unknown, formData: FormData) {
       password: formData.get("password"),
       confirmPassword: formData.get("confirmPassword"),
     });
+    const redirectTo = formData.get("callbackUrl") as string;
 
     const plainPassword = user.password;
 
@@ -79,6 +81,7 @@ export async function signUpUser(prevState: unknown, formData: FormData) {
     await signIn("credentials", {
       email: user.email,
       password: plainPassword,
+      redirectTo,
     });
 
     return { success: true, message: "User registered successfully" };
@@ -117,7 +120,7 @@ export async function updateUserAddress(data: ShippingAddress) {
       where: { id: currentUser.id },
       data: { address },
     });
-    return { success: true, message: "User updated successfuly" };
+    return { success: true, message: "User updated successfully" };
   } catch (error) {
     return { success: false, message: formatError(error) };
   }

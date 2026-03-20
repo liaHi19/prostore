@@ -28,11 +28,11 @@ const CredentialsSignInForm = () => {
   });
 
   const searchParams = useSearchParams();
-  const callbackUrl = searchParams.get("callbackUrl") || "/";
+  const callbackUrl = searchParams.get("callbackUrl");
 
   return (
     <form action={action}>
-      <input type="hidden" name="callbackUrl" value={callbackUrl} />
+      <input type="hidden" name="callbackUrl" value={callbackUrl ?? "/"} />
       <div className="space-y-6">
         <div>
           <Label htmlFor="email">Email</Label>
@@ -62,7 +62,13 @@ const CredentialsSignInForm = () => {
         )}
         <div className="text-sm text-center text-muted-foreground">
           Don&apos;t have an account?{" "}
-          <Link href="/sign-up" target="_self" className="link">
+          <Link
+            href={
+              callbackUrl ? `/sign-up?callbackUrl=${callbackUrl}` : "/sign-up"
+            }
+            target="_self"
+            className="link"
+          >
             Sign Up
           </Link>
         </div>
